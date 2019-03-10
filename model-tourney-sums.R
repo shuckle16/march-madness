@@ -25,12 +25,26 @@ moddf <-
   stats_df2 %>%
   left_join(tourney_score_diff_sums)
 
-moddf <- moddf %>% dplyr::select(-winner_seed, -Rk)
+moddf <- 
+  moddf %>% 
+  dplyr::select(
+    -winner_seed, -Rk, 
+    year, school, ngames, made_it, 
+    Overall_SRS, Overall_SOS, 
+    sum_score_diff, 
+    contains("pct"))
 
-moddf_train <- moddf %>% filter(year < 2019) %>% filter(made_it == 1, !is.na(ngames)) %>% replace_na(list(sum_score_diff = 0))
-moddf_test <- moddf %>% filter(year == 2019)
+moddf_train <- 
+  moddf %>% 
+  filter(year < 2018) %>% 
+  filter(made_it == 1, !is.na(ngames)) %>% 
+  replace_na(list(sum_score_diff = 0))
 
-rfmod <- ranger::ranger(sum_score_diff ~ . -ngames, data = moddf_train, num.trees = 500, importance = "impurity")
+moddf_test <- 
+  moddf %>% 
+  filter(year == 2018)
+
+rfmod <- ranger::ranger(sum_score_diff ~ . -ngames -year, data = moddf_train, num.trees = 500, importance = "impurity")
 
 data.frame(importance(rfmod)) %>% 
   rownames_to_column(var = "variable") %>% 
@@ -51,7 +65,14 @@ data.frame(
 data.frame(
   moddf_test,
   pred = predict(rfmod, data = moddf_test %>% ungroup())$predictions
-) 
+) %>% 
+  arrange(desc(pred)) %>% 
+  head(64) %>% 
+  ggplot(aes(x = reorder(school, pred), y = pred)) + 
+  geom_col() + 
+  coord_flip() + 
+  ggtitle("Random Forest Predictions",
+          subtitle = "sum(winning margin) for all whole tournament")
 
 # %>% 
 #   ggplot(aes(x = sum_score_diff, y = pred, label = paste(school, year, winner_seed))) + 
