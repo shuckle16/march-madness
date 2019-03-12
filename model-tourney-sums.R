@@ -36,13 +36,13 @@ moddf <-
 
 moddf_train <- 
   moddf %>% 
-  filter(year < 2018) %>% 
+  filter(year < 2019) %>% 
   filter(made_it == 1, !is.na(ngames)) %>% 
   replace_na(list(sum_score_diff = 0))
 
 moddf_test <- 
   moddf %>% 
-  filter(year == 2018)
+  filter(year == 2019)
 
 rfmod <- ranger::ranger(sum_score_diff ~ . -ngames -year, data = moddf_train, num.trees = 500, importance = "impurity")
 
@@ -72,7 +72,7 @@ data.frame(
   geom_col() + 
   coord_flip() + 
   ggtitle("Random Forest Predictions",
-          subtitle = "sum(winning margin) for all whole tournament")
+          subtitle = "sum(winning margin) for whole tournament")
 
 # %>% 
 #   ggplot(aes(x = sum_score_diff, y = pred, label = paste(school, year, winner_seed))) + 
