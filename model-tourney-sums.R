@@ -28,7 +28,6 @@ moddf <-
 moddf <- 
   moddf %>% 
   dplyr::select(
-    -winner_seed, -Rk, 
     year, school, ngames, made_it, 
     Overall_SRS, Overall_SOS, 
     sum_score_diff, 
