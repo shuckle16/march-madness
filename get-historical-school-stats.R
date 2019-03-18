@@ -28,10 +28,10 @@ get_season_stats <- function(year) {
     mutate(
       school = str_replace(school,"NCAA","") %>% str_trim()
     ) %>% 
-    mutate_at(vars(-school),as.numeric)
+    mutate_at(vars(-school), as.numeric)
 }
 
 stats_df <- purrr::map_df(years,get_season_stats,.id = "year")
 
 stats_df %>% 
-  GGally::ggpairs(columns = c("Overall_W", "Overall_SRS", "Points_Tm.", "Points_Opp."),aes(colour = factor(made_it)))
+  GGally::ggpairs(columns = c("Overall_W", "Overall_SRS", "Points_Tm.", "Points_Opp."), aes(colour = factor(made_it)))
