@@ -2,6 +2,8 @@
 
 team_game %>% count(year) %>% ggplot(aes(x = year, y = n)) + geom_col()
 
+stats_df %>% 
+  GGally::ggpairs(columns = c("Overall_W", "Overall_SRS", "Points_Tm.", "Points_Opp."), aes(colour = factor(made_it)))
 
 dat <- 
   data.frame(

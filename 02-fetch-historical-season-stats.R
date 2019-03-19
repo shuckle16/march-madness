@@ -4,7 +4,7 @@ library(rvest)
 years <- 1995:2019
 names(years) <- years
 
-get_season_stats <- function(year) {
+fetch_season_stats <- function(year) {
   
   url <- paste("https://www.sports-reference.com/cbb/seasons/", year, "-school-stats.html", sep = "")
   ncaa <- read_html(url)
@@ -31,7 +31,4 @@ get_season_stats <- function(year) {
     mutate_at(vars(-school), as.numeric)
 }
 
-stats_df <- purrr::map_df(years,get_season_stats,.id = "year")
-
-stats_df %>% 
-  GGally::ggpairs(columns = c("Overall_W", "Overall_SRS", "Points_Tm.", "Points_Opp."), aes(colour = factor(made_it)))
+stats_df <- purrr::map_df(years, fetch_season_stats, .id = "year")
