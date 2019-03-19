@@ -2,6 +2,7 @@ library(ranger)
 
 tourney_score_diff_sums <- 
   team_game2 %>% 
+  bind_rows(tourney_data_2017_2018) %>% 
   group_by(year, winner_team, winner_seed) %>% 
   summarize(
     sum_score_diff = sum(winner_score - loser_score),

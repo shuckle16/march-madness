@@ -1,4 +1,7 @@
-#tl;dr yagni
+#tl;dr: you aren't gonna need it
+
+team_game %>% count(year) %>% ggplot(aes(x = year, y = n)) + geom_col()
+
 
 dat <- 
   data.frame(
