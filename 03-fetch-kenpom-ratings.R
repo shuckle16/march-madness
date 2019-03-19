@@ -1,5 +1,5 @@
 kp <- 
-  read_html("https://kenpom.com/") %>% 
+  read_html("https://kenpom.com/index.php?y=2019") %>% 
   html_table() %>% 
   `[[`(1)
 
@@ -13,8 +13,13 @@ kp <- kp[-1,]
 
 kp <- 
   kp %>% 
-  filter(!(Rk == "Rk"),
-         !(Rk == ""))
+  filter(
+    !(Rk == "Rk"),
+    !(Rk == "")
+    ) %>% 
+  mutate(
+    Rk = as.numeric(Rk)
+  )
 
 kp <- 
   kp %>% 
@@ -33,11 +38,3 @@ kp <-
     Team = str_replace(string = Team, pattern = "Gardner Webb", "Gardner-Webb"),
     Team = str_replace(string = Team, pattern = "Prairie View A&M", "Prairie View")
   )
-
-kp %>% 
-  inner_join(
-    moddf_test %>% mutate(pred = predict(rfmod, data = moddf_test %>% ungroup())$predictions), 
-    by = c("Team" = "school")) %>% 
-  ggplot(aes(x = as.numeric(Rk), y = pred)) + 
-  geom_text(aes(label = Team)) + scale_y_log10() + 
-  scale_x_log10()

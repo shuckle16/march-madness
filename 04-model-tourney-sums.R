@@ -46,37 +46,3 @@ moddf_test <-
   filter(year == 2019, made_it == 1)
 
 rfmod <- ranger::ranger(sum_score_diff ~ . -ngames -year, data = moddf_train, num.trees = 500, importance = "impurity")
-
-data.frame(importance(rfmod)) %>% 
-  rownames_to_column(var = "variable") %>% 
-  ggplot(
-    aes(
-      x = reorder(variable, importance.rfmod.), 
-      y = importance.rfmod.
-      )
-    ) + 
-  geom_col() + 
-  coord_flip()
-
-data.frame(
-  moddf_train,
-  pred = predictions(rfmod)
-) %>% head()
-
-data.frame(
-  moddf_test,
-  pred = predict(rfmod, data = moddf_test %>% ungroup())$predictions
-) %>% 
-  arrange(desc(pred)) %>% 
-  head(64) %>% 
-  ggplot(aes(x = reorder(school, pred), y = pred)) + 
-  geom_col() + 
-  coord_flip() + 
-  ggtitle("Random Forest Predictions",
-          subtitle = "sum(winning margin) for whole tournament")
-
-# %>% 
-#   ggplot(aes(x = sum_score_diff, y = pred, label = paste(school, year, winner_seed))) + 
-#   geom_text() + 
-#   geom_abline(slope = 1, intercept = 0, linetype = "dashed") + 
-#   xlab("Sum of Score Differences")
