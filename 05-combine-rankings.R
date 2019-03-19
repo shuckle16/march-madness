@@ -15,7 +15,8 @@ final_df %>%
   dplyr::select(
     Team, Conf, Rk, my_rank, combo_rank
   ) %>% 
-  arrange(combo_rank)
+  arrange(combo_rank) %>% 
+  head()
 
 data.frame(importance(rfmod)) %>% 
   rownames_to_column(var = "variable") %>% 

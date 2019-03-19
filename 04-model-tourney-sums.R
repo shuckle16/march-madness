@@ -1,5 +1,3 @@
-library(ranger)
-
 tourney_score_diff_sums <- 
   tourney_data %>% 
   group_by(year, winner_team, winner_seed) %>% 

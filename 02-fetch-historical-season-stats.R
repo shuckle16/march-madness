@@ -1,5 +1,3 @@
-library(tidyverse)
-library(rvest)
 
 years <- 1995:2019
 names(years) <- years
