@@ -35,8 +35,10 @@ moddf <-
 
 moddf_train <- 
   moddf %>% 
-  filter(year > 2010, year < 2019) %>% 
-  filter(made_it == 1, !is.na(ngames)) %>% 
+  filter(
+    year > 2010, year < 2019,
+    made_it == 1, !is.na(ngames)
+    ) %>% 
   replace_na(list(sum_score_diff = 0))
 
 moddf_test <- 

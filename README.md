@@ -2,6 +2,15 @@
 
 Using a model built from historical, season level stats to help me fill out my bracket for the 2019 tournament. 
 
+## About the Code
+
+- The first 3 scripts import the relevant datasets (see below).
+
+- The fourth script joins the season aggregate stats with the tournament performance data. 
+It then builds a random forest model with the [ranger][4] package, using data from 2010 - 2018 to predict outcomes in 2019.
+
+- The fifth script joins the ranked `ranger` predictions with the rankings from [kenpom.com](kenpom.com), and averages the two sets of scores to arrive at a final ranking. 
+
 ### About the Data
 
 The data has three components:
@@ -46,3 +55,4 @@ The data has three components:
 [1]: https://github.com/mmclaughlin87/march-madness-historical-perfomance
 [2]: http://www.hoopstournament.net/StandardReports/By_Year.pdf
 [3]: https://kenpom.com/index.php?y=2019
+[4]: https://github.com/imbs-hl/ranger
