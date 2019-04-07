@@ -1,7 +1,13 @@
+rf_preds <-
+  moddf_test %>% 
+  mutate(
+    pred = predict(rfmod, data = moddf_test %>% ungroup())$predictions
+  )
+
 final_df <- 
   kp %>% 
   inner_join(
-    moddf_test %>% mutate(pred = predict(rfmod, data = moddf_test %>% ungroup())$predictions), 
+    rf_preds,
     by = c("Team" = "school")
     ) %>% 
   mutate(

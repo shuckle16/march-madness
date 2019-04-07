@@ -2,7 +2,7 @@
 
 Using a model built from historical, season level stats to help me fill out my bracket for the 2019 tournament. 
 
-## About the Code
+### About the Code
 
 - The first 3 scripts import the relevant datasets (see below).
 
