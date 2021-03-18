@@ -19,7 +19,7 @@ The data has three components:
 
 - Tournament-game data from 1995 to 2019. This is from [mmclaughlin87][1] github repository for the years 1995 to 2018. For 2017 and 2018, I dug further into the original source in [this pdf][2]. This data is the source of my dependent variable, which is the sum of the total winnings margin for each team for each year.
 
-- The 2019 [kenpom.com ratings][3].
+- The 2021 [kenpom.com ratings][3].
 
 
 ### My Session Info
