@@ -11,7 +11,7 @@ tourney_score_diff_sums <-
 stats_df2 <- 
   stats_df %>% 
   mutate(year = as.numeric(year)) %>% 
-  dplyr::select(-`_NA`) %>% 
+  dplyr::select(-starts_with("_NA..")) %>% 
   filter(!is.na(Overall_SRS)) %>% 
   dplyr::select_if(funs(!any(is.na(.))))
 
@@ -36,13 +36,13 @@ moddf <-
 moddf_train <- 
   moddf %>% 
   filter(
-    year > 2010, year < 2019,
+    year > 2010, year <= 2019,
     made_it == 1, !is.na(ngames)
     ) %>% 
   replace_na(list(sum_score_diff = 0))
 
 moddf_test <- 
   moddf %>% 
-  filter(year == 2019, made_it == 1)
+  filter(year == 2021, made_it == 1)
 
 rfmod <- ranger::ranger(sum_score_diff ~ . -ngames -year, data = moddf_train, num.trees = 500, importance = "impurity")

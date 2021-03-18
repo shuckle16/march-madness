@@ -1,5 +1,5 @@
 kp <- 
-  read_html("https://kenpom.com/index.php?y=2019") %>% 
+  read_html("https://kenpom.com/index.php?y=2021") %>% 
   html_table() %>% 
   `[[`(1)
 
@@ -36,5 +36,6 @@ kp <-
     Team = str_replace(string = Team, pattern = "Saint Mary's", "Saint Mary's (CA)"),
     Team = str_replace(string = Team, pattern = "St. John's", "St. John's (NY)"),
     Team = str_replace(string = Team, pattern = "Gardner Webb", "Gardner-Webb"),
-    Team = str_replace(string = Team, pattern = "Prairie View A&M", "Prairie View")
+    Team = str_replace(string = Team, pattern = "Prairie View A&M", "Prairie View"),
+    Team = str_replace(string = Team, pattern = "UC Santa Barbara", "California-Santa Barbara")
   )

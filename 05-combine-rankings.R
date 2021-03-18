@@ -6,7 +6,7 @@ rf_preds <-
 
 final_df <- 
   kp %>% 
-  inner_join(
+  full_join(
     rf_preds,
     by = c("Team" = "school")
     ) %>% 
