@@ -7,7 +7,7 @@ Using a model built from historical, season level stats to help me fill out my b
 - The first 3 scripts import the relevant datasets (see below).
 
 - The fourth script joins the season aggregate stats with the tournament performance data. 
-It then builds a random forest model with the [ranger][4] package, using data from 2010 - 2018 to predict outcomes in 2019.
+It then builds a random forest model with the [ranger][4] package, using data from 2010 - 2018 to predict outcomes in 2021.
 
 - The fifth script joins the ranked `ranger` predictions with the rankings from [kenpom.com](kenpom.com), and averages the two sets of scores to arrive at a final ranking. 
 
