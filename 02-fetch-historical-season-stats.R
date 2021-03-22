@@ -1,5 +1,5 @@
 
-years <- 1995:2019
+years <- 1995:2021
 names(years) <- years
 
 fetch_season_stats <- function(year) {
@@ -14,6 +14,7 @@ fetch_season_stats <- function(year) {
   ncaa_tbl <- ncaa_tbl[-1,]
   
   ncaa_tbl %>%
+    as_tibble(.name_repair = "unique") %>%
     rename(
       school = `_School`
     ) %>% 
